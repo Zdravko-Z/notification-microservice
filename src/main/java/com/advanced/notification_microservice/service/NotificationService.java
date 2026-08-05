@@ -1,5 +1,6 @@
 package com.advanced.notification_microservice.service;
 
+import com.advanced.notification_microservice.dto.NotificationResponse;
 import com.advanced.notification_microservice.entity.Notification;
 import com.advanced.notification_microservice.entity.NotificationType;
 import com.advanced.notification_microservice.dto.NotificationRequest;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -33,6 +36,12 @@ public class NotificationService {
     //TODO
     public void sendReminder(NotificationRequest request){
 
+    }
+
+    public List<NotificationResponse> getHistory(UUID userId){
+        List<Notification> notifications = (userId == null) ? notificationRepository.findAllByOrderBySentAtDesc() : notificationRepository.findByUserIdOrderBySentAtDesc(userId);
+
+        return notifications.stream().map(NotificationMapper::toResponse).toList();
     }
 
     private String buildEmailBody(NotificationRequest request) {
