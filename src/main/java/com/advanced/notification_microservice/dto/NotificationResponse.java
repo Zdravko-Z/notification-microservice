@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -24,4 +25,7 @@ public class NotificationResponse {
     private NotificationType type;
     private int retryCount;
     private Instant sentAt;
+    private LocalDateTime appointmentTime;
+    private boolean reminderSent;
+    private boolean cancelled;
 }

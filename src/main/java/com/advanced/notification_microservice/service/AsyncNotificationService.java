@@ -26,6 +26,10 @@ public class AsyncNotificationService {
         Notification notification = notificationRepository.findById(notificationId)
                 .orElseThrow(() -> new NotificationNotFoundException("There is no notification with this id: " + notificationId));
 
+        attemptSend(notification);
+    }
+
+    public void attemptSend(Notification notification) {
         try {
             emailService.sendEmail(notification.getRecipientEmail(),
                     notification.getSubject(),

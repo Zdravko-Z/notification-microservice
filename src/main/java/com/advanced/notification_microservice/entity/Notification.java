@@ -4,12 +4,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "notifications")
+@Table(name = "notifications",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_booking_notification_type",
+                columnNames = {"booking_id", "notification_type"}))
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,6 +30,18 @@ public class Notification {
 
     @Column(name = "recipient_phone")
     private String recipientPhone;
+
+    @Column(name = "customer_name")
+    private String customerName;
+
+    @Column(name = "treatment_name")
+    private String treatmentName;
+
+    @Column(name = "confirmation_code")
+    private String confirmationCode;
+
+    @Column(name = "appointment_time")
+    private LocalDateTime appointmentTime;
 
     @Column
     private String subject;
@@ -46,4 +62,10 @@ public class Notification {
 
     @Column(name = "sent_at")
     private Instant sentAt;
+
+    @Column(name = "reminder_sent", nullable = false)
+    private boolean reminderSent = false;
+
+    @Column(name = "cancelled", nullable = false)
+    private boolean cancelled = false;
 }
