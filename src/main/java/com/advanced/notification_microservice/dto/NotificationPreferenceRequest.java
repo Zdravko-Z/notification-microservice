@@ -2,7 +2,6 @@ package com.advanced.notification_microservice.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.aspectj.bridge.Message;
 
 @Data
 public class NotificationPreferenceRequest {

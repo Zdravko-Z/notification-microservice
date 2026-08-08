@@ -19,7 +19,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "booking_id",unique = true, nullable = false)
+    @Column(name = "booking_id",nullable = false)
     private UUID bookingId;
 
     @Column(name = "user_id", nullable = false)

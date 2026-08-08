@@ -3,7 +3,6 @@ package com.advanced.notification_microservice.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.Instant;
 import java.util.UUID;
 

@@ -15,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -40,16 +39,6 @@ public class NotificationService {
         Notification notification = NotificationMapper.toEntity(request, subject, body, NotificationType.CONFIRMATION);
 
         persistAndDispatch(notification, request.getUserId(), NotificationType.CONFIRMATION);
-    }
-
-
-    public void sendReminder(NotificationRequest request) {
-        String body = buildReminderEmailBody(request.getCustomerName(), request.getTreatmentName(),
-                request.getAppointmentTime(), request.getConfirmationCode());
-        Notification notification = NotificationMapper.toEntity(
-                request, REMINDER_SUBJECT, body, NotificationType.REMINDER);
-
-        persistAndDispatch(notification, request.getUserId(), NotificationType.REMINDER);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

@@ -22,6 +22,7 @@ public class NotificationPreferenceController {
     @GetMapping("/{userId}")
     public ResponseEntity<NotificationPreferenceResponse> getPreferences(@PathVariable UUID userId) {
         NotificationPreference preference = notificationPreferenceService.getOrCreateDefault(userId);
+
         return ResponseEntity.ok(NotificationPreferenceMapper.toResponse(preference));
     }
 
@@ -29,24 +30,24 @@ public class NotificationPreferenceController {
     public ResponseEntity<NotificationPreferenceResponse> updatePreferences(
             @PathVariable UUID userId, @Valid @RequestBody NotificationPreferenceRequest request) {
         log.info("Updating notification preferences for user: {}", userId);
-
         NotificationPreference preference = notificationPreferenceService.updatePreferences(userId, request);
+
         return ResponseEntity.ok(NotificationPreferenceMapper.toResponse(preference));
     }
 
-    @PostMapping("/{userId}/unsubscribe")
-    public ResponseEntity<NotificationPreferenceResponse> unsubscribe(@PathVariable UUID userId) {
+    @PostMapping("/unsubscribe/{userId}")
+    public ResponseEntity<NotificationPreferenceResponse> unsubscribe(@PathVariable("userId") UUID userId) {
         log.info("Unsubscribing user {} from all notifications", userId);
-
         NotificationPreference preference = notificationPreferenceService.unsubscribeAll(userId);
+
         return ResponseEntity.ok(NotificationPreferenceMapper.toResponse(preference));
     }
 
-    @PostMapping("/{userId}/resubscribe")
-    public ResponseEntity<NotificationPreferenceResponse> resubscribe(@PathVariable UUID userId) {
+    @PostMapping("/resubscribe/{userId}")
+    public ResponseEntity<NotificationPreferenceResponse> resubscribe(@PathVariable("userId") UUID userId) {
         log.info("Resubscribing user {} to notifications", userId);
-
         NotificationPreference preference = notificationPreferenceService.resubscribeAll(userId);
+
         return ResponseEntity.ok(NotificationPreferenceMapper.toResponse(preference));
     }
 }
